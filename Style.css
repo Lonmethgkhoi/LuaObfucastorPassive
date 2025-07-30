@@ -1,0 +1,26 @@
+body {
+  font-family: Arial;
+  margin: 40px;
+  background: #1e1e1e;
+  color: white;
+  text-align: center;
+}
+
+textarea {
+  width: 90%;
+  height: 250px;
+  background: #2e2e2e;
+  color: #fff;
+  border: none;
+  padding: 10px;
+  font-size: 14px;
+}
+
+button {
+  padding: 10px 20px;
+  background: #00cc88;
+  color: white;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+}
