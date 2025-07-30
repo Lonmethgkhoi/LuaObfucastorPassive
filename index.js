@@ -1,35 +1,37 @@
-const express = require('express');
-const bodyParser = require('body-parser');
-const obfuscator = require('javascript-obfuscator');
+const express = require("express");
+const bodyParser = require("body-parser");
+const JavaScriptObfuscator = require("javascript-obfuscator");
+const fs = require("fs");
+
 const app = express();
+const port = process.env.PORT || 3000;
 
-app.use(bodyParser.text({ type: '*/*' }));
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(express.static("public"));
+app.set("view engine", "ejs");
+app.set("views", "./views");
 
-app.post('/obfuscate', (req, res) => {
-  const inputCode = req.body;
+app.get("/", (req, res) => {
+  res.render("index", { output: null });
+});
 
-  const obfuscated = obfuscator.obfuscate(inputCode, {
+app.post("/obfuscate", (req, res) => {
+  const code = req.body.code;
+  const watermark = "// This file obfuscation by Passive\n\n";
+
+  const obfuscated = JavaScriptObfuscator.obfuscate(code, {
     compact: true,
     controlFlowFlattening: true,
-    controlFlowFlatteningThreshold: 1,
-    numbersToExpressions: true,
-    simplify: true,
     stringArray: true,
     stringArrayEncoding: ['base64'],
-    stringArrayThreshold: 1,
-    renameGlobals: true,
-    selfDefending: true
-  }).getObfuscatedCode();
+    splitStrings: true,
+    stringArrayThreshold: 1
+  });
 
-  const result = `// This file obfuscation by Passive\n` + obfuscated;
-
-  res.type('text/plain').send(result);
+  const result = watermark + obfuscated.getObfuscatedCode();
+  res.render("index", { output: result });
 });
 
-app.get('/', (req, res) => {
-  res.send('Welcome to Passive Obfuscator API');
-});
-
-app.listen(3000, () => {
-  console.log('Obfuscator running on port 3000');
+app.listen(port, () => {
+  console.log(`Listening on http://localhost:${port}`);
 });
