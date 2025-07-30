@@ -1,14 +1,15 @@
 {
-  "name": "passive-lua-obfuscator",
+  "name": "obfuscator-passive",
   "version": "1.0.0",
-  "main": "server.js",
+  "description": "Web Obfuscate by Passive",
+  "main": "index.js",
   "scripts": {
-    "start": "node server.js"
+    "start": "node index.js"
   },
   "dependencies": {
     "express": "^4.18.2",
-    "multer": "^1.4.5",
-    "fs-extra": "^11.2.0",
-    "luamin": "^1.1.0"
+    "body-parser": "^1.20.2",
+    "javascript-obfuscator": "^4.0.0",
+    "ejs": "^3.1.9"
   }
 }
