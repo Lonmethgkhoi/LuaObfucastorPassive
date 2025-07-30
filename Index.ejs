@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Obfuscator by Passive</title>
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <h1>Obfuscator by Passive</h1>
+  <form method="POST" action="/obfuscate">
+    <textarea name="code" placeholder="Paste your JS code here..."></textarea>
+    <br>
+    <button type="submit">Obfuscate</button>
+  </form>
+
+  <% if (output) { %>
+    <h2>Obfuscated Code</h2>
+    <textarea readonly><%= output %></textarea>
+  <% } %>
+</body>
+</html>
